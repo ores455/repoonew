@@ -8,14 +8,14 @@
     }
 
     body {
-        background-color: #eeeeee;
-        color: #333;
+        background-color: white;
+        color: #020300;
     }
 
     /* ===== HEADER ===== */
 
     header {
-        background-color: #666666;
+        background-color: #2b2d31;
         padding: 15px 6%;
         display: flex;
         align-items: center;
@@ -25,48 +25,70 @@
     .logo {
         font-size: 28px;
         font-weight: bold;
-        color: #222;
+        color: white;
     }
 
     .buscador {
         flex: 1;
         display: flex;
+        align-items: center;
+        background-color: #666666;
+        border: 2px solid white;
+        border-radius: 10px;
+        overflow: hidden;
     }
 
     .buscador input {
         width: 100%;
         padding: 13px;
-        border: none;
+        border: 1x solid white;
+        border-radius: 10px;
         outline: none;
         font-size: 15px;
+        background-color: #2b2d31;
+    }
+
+    .buscador input::placeholder {
+    color: white;
     }
 
     .buscador button {
-        width: 55px;
+        padding: 13px 16px;
         border: none;
-        background-color: white;
+        background: transparent;
+        color: #2b2d31;
         cursor: pointer;
-        font-size: 18px;
     }
 
     .usuario {
         font-size: 15px;
-        white-space: nowrap;
+        padding: 10px;
+        border: 2px solid white;
+        border-radius: 8px;
+        background-color: #2b2d31;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .usuario:active {
+        box-shadow: 0 0 15px #3483fa;
+        background-color: #3483fa;
     }
 
     /* ===== CATEGORÍAS ===== */
 
     nav {
-        background-color: white;
+        background-color: #2b2d31;
         padding: 14px 6%;
         display: flex;
         gap: 30px;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid white;
     }
 
     nav a {
         text-decoration: none;
-        color: #555;
+        color:white ;
         font-size: 14px;
     }
 
@@ -82,7 +104,7 @@
         margin: 25px auto;
         padding: 45px;
         border-radius: 10px;
-        background-color: #666666;
+        background-color:  #5B2C83;
         color: white;
     }
 
@@ -119,14 +141,17 @@
 
     .producto {
         background-color: white;
-        border-radius: 8px;
+        border: 1px solid #dddddd;
+        border-radius: 10px;
         overflow: hidden;
-        transition: 0.2s;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
     }
 
     .producto:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        transform: translateY(-8px);
+        box-shadow: 0 0 25px rgba(123, 44, 191, 1);
+        border-color: #7B2CBF;
     }
 
     .producto img {
