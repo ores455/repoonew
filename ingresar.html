@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bastian App</title>
+  <link rel="stylesheet" href="estilo2.css">
+</head>
+<body>
+
+  <!-- LOGIN / REGISTRO / RECUPERAR -->
+  <main class="card" id="authCard">
+    <h1>🐒 Bastian App</h1>
+    <p class="sub">Iniciá sesión o creá tu cuenta</p>
+
+    <div class="tabs">
+      <button type="button" data-tab="login" class="active">Iniciar sesión</button>
+      <button type="button" data-tab="register">Registrarse</button>
+      <button type="button" data-tab="recover" class="hidden" id="tabRecover">Recuperar</button>
+    </div>
+
+    <!-- LOGIN -->
+    <form id="formLogin" novalidate>
+      <label for="loginUser">Usuario</label>
+      <input id="loginUser" type="text" autocomplete="username" placeholder="Ej: bastian_mama" required>
+
+      <label for="loginPass">Contraseña</label>
+      <input id="loginPass" type="password" autocomplete="current-password" placeholder="Tu contraseña" required>
+
+      <button class="btn" type="submit">Entrar</button>
+      <button class="link" type="button" data-tab="recover">¿Olvidaste tu contraseña?</button>
+    </form>
+
+    <!-- REGISTRO -->
+    <form id="formRegister" class="hidden" novalidate>
+      <label for="regUser">Usuario *</label>
+      <input id="regUser" type="text" placeholder="Elegí un usuario" autocomplete="username" required>
+
+      <div class="row">
+        <div>
+          <label for="regPass">Contraseña *</label>
+          <input id="regPass" type="password" placeholder="Mín. 8 caracteres" autocomplete="new-password" required>
+        </div>
+        <div>
+          <label for="regPass2">Confirmar *</label>
+          <input id="regPass2" type="password" placeholder="Repetila" autocomplete="new-password" required>
+        </div>
+      </div>
+
+      <label for="regQuestion">Pregunta de seguridad *</label>
+      <select id="regQuestion">
+        <option>¿Cómo se llama tu mascota?</option>
+        <option>¿Cuál es tu comida favorita?</option>
+        <option>¿En qué ciudad naciste?</option>
+        <option>¿Nombre de tu mejor amigo?</option>
+      </select>
+
+      <label for="regAnswer">Respuesta de seguridad *</label>
+      <input id="regAnswer" type="text" placeholder="Ej: Firulais" autocomplete="off" required>
+
+      <label class="check">
+        <input id="regConfirm" type="checkbox">
+        Confirmo que los datos son correctos
+      </label>
+
+      <button class="btn btn-green" type="submit">Crear cuenta</button>
+    </form>
+
+    <!-- RECUPERAR -->
+    <form id="formRecover" class="hidden" novalidate>
+      <label for="recUser">Usuario</label>
+      <input id="recUser" type="text" placeholder="Tu usuario" autocomplete="username">
+      <button id="btnFind" class="btn" type="submit">Buscar mi pregunta</button>
+
+      <div id="recoverStep2" class="hidden">
+        <div class="box"><b>Pregunta:</b> <span id="recQuestionText"></span></div>
+
+        <label for="recAnswer">Tu respuesta</label>
+        <input id="recAnswer" type="text" autocomplete="off">
+
+        <label for="recNewPass">Nueva contraseña</label>
+        <input id="recNewPass" type="password" autocomplete="new-password" placeholder="Mín. 8 caracteres">
+
+        <label for="recNewPass2">Confirmar nueva contraseña</label>
+        <input id="recNewPass2" type="password" autocomplete="new-password">
+
+        <button class="btn btn-green" type="submit">Cambiar contraseña</button>
+      </div>
+
+      <button class="link" type="button" data-tab="login">Volver al login</button>
+    </form>
+
+    <div id="msg" class="msg"></div>
+  </main>
+
+  <!-- PANEL -->
+  <section class="card hidden" id="panelCard">
+    <h1>¡Hola, <span id="panelUser"></span>! 👋</h1>
+    <p class="sub">Sesión iniciada correctamente</p>
+
+    <div class="center"><span id="panelBadge" class="badge"></span></div>
+    <div class="box" id="panelInfo"></div>
+
+    <!-- SOLO ADMIN -->
+    <div id="adminSection" class="hidden">
+      <h3 style="margin-top:15px">👑 Panel de administrador</h3>
+      <p style="font-size:13px;color:#666">Usuarios registrados:</p>
+      <div id="userList" style="margin-top:10px"></div>
+      <button id="btnDeleteAll" class="btn btn-danger" type="button">
+        Borrar todos los usuarios (excepto yo)
+      </button>
+    </div>
+
+    <!-- SOLO USUARIO -->
+    <div id="userSection" class="hidden">
+      <div class="box">
+        🎉 Como usuario normal podés ver tu perfil y usar la app.
+      </div>
+    </div>
+
+    <button id="btnLogout" class="btn btn-gray" type="button">Cerrar sesión</button>
+  </section>
+
+  <script src="java.js"></script>
+</body>
+</html>
