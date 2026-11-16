@@ -106,7 +106,7 @@ document.querySelectorAll('[data-tab]').forEach(btn =>
   btn.addEventListener('click', () => showTab(btn.dataset.tab))
 );
 
-// ---------- Registro ----------
+// ---------- Registro (inicia sesión y manda a la tienda) ----------
 $('formRegister').addEventListener('submit', async e => {
   e.preventDefault();
   clearMsg();
@@ -116,7 +116,7 @@ $('formRegister').addEventListener('submit', async e => {
   const pass2 = $('regPass2').value;
   const question = $('regQuestion').value;
   const answer = $('regAnswer').value.trim().toLowerCase();
-  const role = $('regRole').value;
+  const role = 'user';
 
   if (!user || !pass || !pass2 || !answer)
     return msg('Completá todos los campos obligatorios *');
@@ -141,15 +141,16 @@ $('formRegister').addEventListener('submit', async e => {
   });
   saveUsers();
 
-  $('formRegister').reset();
-  msg('¡Cuenta creada! Ahora podés iniciar sesión.', true);
+  // Guarda la sesión temporalmente (se borra al cerrar la pestaña/navegador)
+  sessionStorage.setItem(SESSION_KEY, user);
+
+  msg('¡Cuenta creada! Entrando a la tienda...', true);
   setTimeout(() => {
-    showTab('login');
-    $('loginUser').value = user;
+    window.location.href = 'index.html';
   }, 800);
 });
 
-// ---------- Login ----------
+// ---------- Login (inicia sesión y manda a la tienda) ----------
 $('formLogin').addEventListener('submit', async e => {
   e.preventDefault();
   clearMsg();
@@ -162,9 +163,13 @@ $('formLogin').addEventListener('submit', async e => {
   if (!found || (await hash(pass, found.salt)) !== found.pass)
     return msg('Usuario o contraseña incorrectos');
 
-  localStorage.setItem(SESSION_KEY, found.user);
-  $('loginPass').value = '';
-  showPanel(found);
+  // Guarda la sesión temporalmente (se borra al cerrar la pestaña/navegador)
+  sessionStorage.setItem(SESSION_KEY, found.user);
+
+  msg('¡Bienvenido! Entrando a la tienda...', true);
+  setTimeout(() => {
+    window.location.href = 'index.html';
+  }, 800);
 });
 
 // ---------- Recuperar contraseña (2 pasos) ----------
@@ -182,7 +187,6 @@ $('formRecover').addEventListener('submit', async e => {
   e.preventDefault();
   clearMsg();
 
-  // Paso 1: buscar la pregunta
   if (!recoverUser) {
     const found = findUser($('recUser').value);
     if (!found) return msg('No existe ese usuario');
@@ -195,7 +199,6 @@ $('formRecover').addEventListener('submit', async e => {
     return;
   }
 
-  // Paso 2: validar respuesta y cambiar contraseña
   const answer = $('recAnswer').value.trim().toLowerCase();
   const np = $('recNewPass').value;
   const np2 = $('recNewPass2').value;
@@ -228,77 +231,43 @@ function infoRow(label, value) {
   return p;
 }
 
-function renderUserList() {
-  const list = $('userList');
-  list.replaceChildren();
-
-  for (const x of users) {
-    const item = document.createElement('div');
-    item.className = 'user-item';
-
-    const name = document.createElement('span');
-    name.textContent = x.user;
-    name.style.fontWeight = '700';
-
-    const role = document.createElement('small');
-    role.textContent = ` (${x.role === 'admin' ? 'administrador' : 'usuario'})`;
-    name.append(role);
-
-    const date = document.createElement('small');
-    date.textContent = x.created;
-
-    item.append(name, date);
-    list.append(item);
-  }
-}
-
 function showPanel(u) {
   show($('authCard'), false);
   show($('panelCard'), true);
 
   $('panelUser').textContent = u.user;
 
-  const isAdmin = u.role === 'admin';
   const badge = $('panelBadge');
-  badge.textContent = isAdmin ? 'ADMINISTRADOR' : 'USUARIO';
-  badge.className = 'badge ' + (isAdmin ? 'badge-admin' : 'badge-user');
+  badge.textContent = 'USUARIO';
+  badge.className = 'badge badge-user';
 
-  $('panelInfo').replaceChildren(
+  const info = $('panelInfo');
+  info.replaceChildren(
     infoRow('Usuario', u.user),
-    infoRow('Rol', isAdmin ? 'Administrador' : 'Usuario normal'),
-    infoRow('Pregunta de seguridad', u.question),
-    infoRow('Creado', u.created)
+    infoRow('Rol', 'Usuario'),
+    infoRow('Registrado el', u.created)
   );
 
-  show($('adminSection'), isAdmin);
-  show($('userSection'), !isAdmin);
-  if (isAdmin) renderUserList();
+  show($('adminSection'), false);
+  show($('userSection'), true);
 }
 
-$('btnDeleteAll').addEventListener('click', () => {
-  const me = findUser(localStorage.getItem(SESSION_KEY) || '');
-  if (!me || me.role !== 'admin') return;
-  if (!confirm('¿Seguro que querés borrar todos los demás usuarios?')) return;
-
-  users = users.filter(u => u.user === me.user);
-  saveUsers();
-  renderUserList();
-  alert('Usuarios borrados, solo quedaste vos.');
-});
-
+// ---------- Cerrar sesión manual ----------
 $('btnLogout').addEventListener('click', () => {
-  localStorage.removeItem(SESSION_KEY);
+  sessionStorage.removeItem(SESSION_KEY);
   show($('panelCard'), false);
   show($('authCard'), true);
   showTab('login');
+  resetRecover();
 });
 
-// ---------- Inicio: mantener sesión si existe ----------
-const savedSession = findUser(localStorage.getItem(SESSION_KEY) || '');
-if (savedSession) showPanel(savedSession);
-
-// ---------- Errores visibles en pantalla ----------
-window.addEventListener('error', e => msg('Error: ' + e.message));
-window.addEventListener('unhandledrejection', e =>
-  msg('Error: ' + (e.reason?.message || e.reason))
-);
+// ---------- Restaurar sesión activa en la pestaña ----------
+const savedSession = sessionStorage.getItem(SESSION_KEY);
+if (savedSession) {
+  const activeUser = findUser(savedSession);
+  if (activeUser) {
+    showPanel(activeUser);
+  } else {
+    sessionStorage.removeItem(SESSION_KEY);
+  }
+}

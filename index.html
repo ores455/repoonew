@@ -31,7 +31,7 @@
     </div>
 
     <div class="usuario">
-        👤 Ingresar
+      <a href="ingresar.html">👤 Ingresar</a>  
     </div>
 
 </header>
@@ -367,5 +367,13 @@
     </p>
 
 </footer>
+<script>
+  const usuarioActivo = sessionStorage.getItem('bastian_sesion');
+  if (usuarioActivo) {
+    const cajaUsuario = document.querySelector('.usuario');
+    cajaUsuario.innerHTML = `<a href="ingresar.html" style="color:white; text-decoration:none;">👤 ${usuarioActivo}</a>`;
+  }
+</script>
+
 </body>
 </html>
