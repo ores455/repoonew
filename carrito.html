@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="estilos.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito - zone Phone</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitcount+Ink:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <div class="logo">Mundo Iphone</div>
+    <div class="buscador">
+        <input type="text" placeholder="Buscar productos...">
+        <button type="submit">🔍</button>
+    </div>
+    <div class="usuario">
+        <a href="ingresar.html">👤 Ingresar</a>
+    </div>
+</header>
+
+<nav>
+    <a href="index.html">Categorías</a>
+    <a href="fundas.html">fundas</a>
+    <a href="auriculares.html">auriculares</a>
+    <a href="accesorios.html">Accesorios</a>
+</nav>
+
+<main class="contenedor">
+    <h2 class="titulo">🛒 Tu carrito</h2>
+
+    <section id="itemsCarrito" class="lista-carrito">
+        <!-- Se llena con JS -->
+    </section>
+
+    <div class="resumen-carrito">
+        <div class="total" id="totalCarrito">Total: $0</div>
+        <button class="btn-pagar" onclick="pagar()">Finalizar compra</button>
+        <a href="index.html" class="btn-seguir">← Seguir comprando</a>
+    </div>
+</main>
+
+<footer>
+    <a href="https://www.instagram.com/zoneiphone2026?rpxt=bmwxcWdvczRuZnY2">
+        <img src="https://th.bing.com/th/id/OIP.xa0FgRBsvMi7bmVNCDYsCgHaHa?r=0&o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3" alt="img" width="70px" height="70px">
+    </a>
+    <h2>CompraFácil</h2>
+    <p>Tu tienda online.</p>
+    <br>
+    <p>© 2026 CompraFácil</p>
+</footer>
+
+<script src="sesiones.js"></script>
+<script src="carrito.js"></script>
+</body>
+</html>   
