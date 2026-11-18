@@ -19,16 +19,52 @@
        Mundo Iphone
     </div>
 
-    <div class="buscador">
+    
+<form class="buscador" onsubmit="return false;">
+    <input
+        type="text"
+        placeholder="Buscar productos..."
+    >
+    <button type="button">Buscar</button>
+</form>
 
-        <input
-            type="text"
-            placeholder="Buscar productos..."
-        >
-        <button type="submit">🔍</button>
+<script>
+const buscador = document.querySelector('.buscador input');
+const boton = document.querySelector('.buscador button');
 
-        
-    </div>
+function buscarProductos() {
+
+    let texto = buscador.value.toLowerCase().trim();
+
+    const productos = document.querySelectorAll('.producto');
+
+    productos.forEach(producto => {
+
+        let titulo = producto.querySelector('h3');
+
+        if (!titulo) return;
+
+        let nombre = titulo.textContent.toLowerCase();
+
+        if (nombre.includes(texto)) {
+            producto.style.display = '';
+        } else {
+            producto.style.display = 'none';
+        }
+
+    });
+}
+
+buscador.addEventListener('input', buscarProductos);
+boton.addEventListener('click', buscarProductos);
+</script>
+
+<script src="sesiones.js"></script>
+<script src="carrito.js"></script>
+
+</body>
+</html>
+</form>
 
     <div class="usuario">
       <a href="ingresar.html">👤 Ingresar</a>  
@@ -63,12 +99,11 @@
 <section class="banner">
 
     <h1>
-        Comprá lo que necesitás
+        Descubrí tu próximo favoritoDescubrí tu próximo favorito
     </h1>
 
     <p>
-        Encontrá productos de diferentes categorías
-        en un solo lugar.
+        Encontrá todo lo que necesitás para llevar tu experiencia al siguiente nivel.Encontrá todo lo que necesitás para llevar tu experiencia al siguiente nivel.
     </p>
 
 </section>

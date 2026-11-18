@@ -98,24 +98,73 @@
 
     /* ===== BANNER ===== */
 
-    .banner {
-        width: 88%;
-        max-width: 1200px;
-        margin: 25px auto;
-        padding: 45px;
-        border-radius: 10px;
-        background-color:  #5B2C83;
-        color: white;
-    }
+   .banner {
+    width: 90%;
+    max-width: 1200px;
+    min-height: 220px;
+    margin: 35px auto;
 
-    .banner h1 {
-        font-size: 38px;
-        margin-bottom: 10px;
-    }
+    padding: 60px 30px;
 
-    .banner p {
-        font-size: 18px;
-    }
+    border: 5px solid #5B2C83;
+    border-radius: 15px;
+
+    background-color: #5B2C83;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    box-sizing: border-box;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+    transition: 0.3s ease;
+}
+
+.banner:hover {
+    box-shadow: 0 0 20px #5B2C83;
+    transform: translateY(-4px);
+}
+
+.banner h1,
+.banner h2 {
+    font-size: 38px;
+    font-weight: 900;
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+    margin-bottom: 15px;
+}
+
+.banner p {
+    font-size: 19px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 3px black;
+}
+.banner.inicio {
+    background-color: #5B2C83;
+    border-color: #8E44AD;
+}
+
+/* Fundas */
+.banner.fundas {
+    background-color: #9B3F70;
+    border-color: #D64B91;
+}
+
+/* Auriculares */
+.banner.auriculares {
+    background-color: #245A91;
+    border-color: #3498DB;
+}
+
+/* Accesorios */
+.banner.accesorios {
+    background-color: #237A5B;
+    border-color: #2ECC71;
+}
 
     /* ===== CONTENIDO ===== */
 
